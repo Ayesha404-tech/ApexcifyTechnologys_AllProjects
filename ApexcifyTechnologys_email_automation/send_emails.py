@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-"""
-Email Automation System
-Send bulk emails efficiently to multiple recipients with the same message.
-Supports up to 100+ recipients simultaneously using threading.
-"""
-
 import smtplib
 import threading
 import time
@@ -12,9 +6,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
+# Dry run flag for testing (set to False for actual sending)
+DRY_RUN = True
 
 # Sender credentials (Gmail with App Password)
 SENDER_EMAIL = "ayeshashabbir053@gmail.com"
@@ -65,10 +58,7 @@ Best regards,
 Apexcify Technologies Team
 """
 
-# ============================================================================
 # STATISTICS AND TRACKING
-# ============================================================================
-
 class EmailStats:
     """Track email sending statistics"""
     def __init__(self):
@@ -96,24 +86,31 @@ class EmailStats:
 
 stats = EmailStats()
 
-# ============================================================================
 # EMAIL SENDING FUNCTIONS
-# ============================================================================
-
 def send_email_to_recipient(recipient_email, subject, body, sender_email, sender_password):
     """
     Send email to a single recipient
-    
+
     Args:
         recipient_email (str): Recipient's email address
         subject (str): Email subject
         body (str): Email body content
         sender_email (str): Sender's email address
         sender_password (str): Sender's email password or app password
-    
+
     Returns:
         bool: True if successful, False otherwise
     """
+    if DRY_RUN:
+        # Simulate sending for testing
+        import random
+        # Simulate 90% success rate for testing
+        if random.random() < 0.9:
+            time.sleep(0.1)  # Simulate network delay
+            return True
+        else:
+            return False, "Simulated failure for testing"
+
     try:
         # Create message
         msg = MIMEMultipart()
@@ -121,22 +118,22 @@ def send_email_to_recipient(recipient_email, subject, body, sender_email, sender
         msg['To'] = recipient_email
         msg['Subject'] = subject
         msg['Date'] = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
-        
+
         # Attach body
         msg.attach(MIMEText(body, 'plain'))
-        
+
         # Send email via Gmail SMTP
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()  # Secure connection
         server.login(sender_email, sender_password)
-        
+
         # Send message
         text = msg.as_string()
         server.sendmail(sender_email, recipient_email, text)
         server.quit()
-        
+
         return True
-    
+
     except smtplib.SMTPAuthenticationError:
         return False, "Authentication failed - check email/password"
     except smtplib.SMTPException as e:
@@ -159,10 +156,10 @@ def send_email_threaded(recipient_email, subject, body, sender_email, sender_pas
     
     if result is True:
         stats.increment_successful()
-        print(f"✅ Email sent successfully to: {recipient_email}")
+        print(f" Email sent successfully to: {recipient_email}")
     else:
         stats.increment_failed(recipient_email, result[1] if isinstance(result, tuple) else "Unknown error")
-        print(f"❌ Failed to send to {recipient_email}: {result[1] if isinstance(result, tuple) else result}")
+        print(f" Failed to send to {recipient_email}: {result[1] if isinstance(result, tuple) else result}")
 
 def send_bulk_emails(recipients_list, subject, body, sender_email, sender_password, max_threads=10):
     """
@@ -230,7 +227,7 @@ def send_sequential_emails(recipients_list, subject, body, sender_email, sender_
     stats.start_time = time.time()
     
     print("=" * 70)
-    print("📧 EMAIL AUTOMATION SYSTEM - SEQUENTIAL SENDER")
+    print(" EMAIL AUTOMATION SYSTEM - SEQUENTIAL SENDER")
     print("=" * 70)
     print(f"Total Recipients: {stats.total}")
     print(f"Subject: {subject}")
@@ -245,10 +242,10 @@ def send_sequential_emails(recipients_list, subject, body, sender_email, sender_
         
         if result is True:
             stats.increment_successful()
-            print("✅")
+            print("")
         else:
             stats.increment_failed(recipient, result[1] if isinstance(result, tuple) else "Unknown error")
-            print(f"❌ ({result[1] if isinstance(result, tuple) else result})")
+            print(f" ({result[1] if isinstance(result, tuple) else result})")
         
         # Small delay between emails to avoid rate limiting
         time.sleep(0.5)
@@ -260,28 +257,26 @@ def print_summary():
     """Print sending statistics and summary"""
     print()
     print("=" * 70)
-    print("📊 SENDING SUMMARY")
+    print(" SENDING SUMMARY")
     print("=" * 70)
     print(f"Total Recipients:    {stats.total}")
-    print(f"Successful:          {stats.successful} ✅")
-    print(f"Failed:              {stats.failed} ❌")
+    print(f"Successful:          {stats.successful} ")
+    print(f"Failed:              {stats.failed} ")
     print(f"Success Rate:        {(stats.successful/stats.total*100):.1f}%" if stats.total > 0 else "N/A")
     print(f"Duration:            {stats.get_duration():.2f} seconds")
     print("=" * 70)
     
     if stats.failed_list:
-        print("\n⚠️  FAILED EMAILS:")
+        print("\n  FAILED EMAILS:")
         for item in stats.failed_list:
             print(f"  • {item['email']}: {item['reason']}")
     
     print()
 
-# ============================================================================
-# MAIN EXECUTION
-# ============================================================================
 
+# MAIN EXECUTION
 if __name__ == "__main__":
-    print("\n🚀 Starting Email Automation System...\n")
+    print("\n Starting Email Automation System...\n")
     
     # Choose sending method
     print("Select sending method:")
@@ -315,6 +310,6 @@ if __name__ == "__main__":
         )
     
     else:
-        print("❌ Invalid choice. Please enter 1 or 2.")
+        print(" Invalid choice. Please enter 1 or 2.")
     
-    print("\n✨ Email automation process completed!")
+    print("\n Email automation process completed!")
