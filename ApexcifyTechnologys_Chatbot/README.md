@@ -5,33 +5,33 @@ A versatile chatbot built with Python that provides intelligent rule-based respo
 ## 🌟 Features
 
 ### Core Features
-- **Rule-Based Responses**: Smart responses to 10+ different categories of input
-- **Multiple Response Variations**: Random responses to avoid repetition
-- **Timestamp Display**: Shows when each message was sent
-- **Graceful Exit**: Multiple ways to end the conversation
-- **Keyboard Interrupt Handling**: Handles Ctrl+C gracefully
+- ✅ **Rule-Based Responses**: Smart responses to 15+ different categories of input
+- ✅ **Multiple Response Variations**: Random responses to avoid repetition
+- ✅ **Timestamp Display**: Shows when each message was sent
+- ✅ **Graceful Exit**: Multiple ways to end the conversation
+- ✅ **Keyboard Interrupt Handling**: Handles Ctrl+C gracefully
 
 ### Web Version Features (Streamlit) ✨
-- **Modern Web Interface**: Beautiful gradient UI with message bubbles
-- **Real-time Chat**: Send messages with Enter key or Send button
-- **Chat History**: Persistent conversation display
-- **Responsive Design**: Works on desktop and mobile devices
-- **User-Friendly**: Clean and intuitive interface
+- 🎨 **Modern Web Interface**: Beautiful gradient blue UI with message bubbles
+- ⚡ **Real-time Chat**: Send messages with Enter key or Send button
+- 💬 **Chat History**: Persistent conversation display with timestamps
+- 📱 **Responsive Design**: Works on desktop and mobile devices
+- 🎯 **User-Friendly**: Clean and intuitive interface with emoji support
 
 ## 🎯 Supported Interactions
 
 The chatbot can intelligently respond to:
-- **Greetings**: "hello", "hi", "hey", "hii"
-- **Well-being**: "how are you", "how are u", "how's it"
-- **Farewells**: "bye", "goodbye", "see you", "adios", "cya"
+- **Greetings**: "hello", "hi", "hey", "hii", "hiiii"
+- **Well-being**: "how are you", "how are u", "how's it", "how are things"
+- **Farewells**: "bye", "goodbye", "see you", "adios", "cya", "farewell"
 - **Gratitude**: "thank you", "thanks"
 - **Help**: "help" (shows available commands)
 - **About Bot**: "what's your name", "who are you", "introduce yourself"
 - **Time**: "what time is it", "current time"
-- **Yes/No**: "yes", "yeah", "no", "nope"
+- **Yes/No**: "yes", "yeah", "no", "nope", "nah"
 - **Feelings**: "how am i feeling", "mood", "feeling"
 - **Feedback**: "nice", "good", "great", "awesome", "cool"
-- **Questions**: General question handling with smart fallback responses
+- **Questions**: "what", "why", "when", "where", "who", "?"
 
 ## 📋 Prerequisites
 
@@ -50,124 +50,60 @@ The chatbot can intelligently respond to:
    pip install -r requirements.txt
    ```
 
-## 💻 Running the Chatbot
+## 💻 Usage
 
 ### Option 1: Web Version (Recommended) 🌐
 
-Start the modern web interface:
 ```bash
-streamlit run chatbot_web.py
+python -m streamlit run chatbot_web.py
 ```
 
-The chatbot will open in your browser at: **http://localhost:8501**
+Open browser at: **http://localhost:8501**
 
-**Features:**
-- Beautiful gradient blue interface
-- Real-time message bubbles
-- Send with Enter key or Send button
-- Full conversation history
+### Option 2: Command-Line Version 🖥️
 
-### Option 2: Command-Line Version
-
-Run the classic terminal version:
 ```bash
 python chatbot.py
 ```
 
-**Features:**
-- Simple terminal-based interaction
-- Timestamped messages
-- Type 'quit' or 'exit' to end
+## 🎨 Features Highlight
 
-## 📁 Project Structure
-
-```
-ApexcifyTechnologys_Chatbot/
-├── chatbot_web.py          # Streamlit web app (Main)
-├── chatbot.py              # Command-line version
-├── requirements.txt        # Python dependencies
-├── .streamlit/
-│   └── config.toml        # Streamlit configuration
-└── README.md              # This file
-```
+- Beautiful gradient blue interface
+- Real-time message bubbles
+- Send with Enter key or button
+- Full conversation history
+- Emoji support
 
 ## 📦 Dependencies
 
-- **streamlit** (1.51.0+) - For the web interface
-- **datetime** - Built-in Python module
+- streamlit (1.51.0+)
+- Python built-in modules
 
-## 🎨 Customization
-
-### Add More Responses
-
-Edit the `get_bot_response()` function in `chatbot_web.py` to add more response categories:
-
-```python
-elif any(word in lower_input for word in ['your_keyword']):
-    responses = [
-        "Response 1",
-        "Response 2",
-    ]
-    import random
-    return random.choice(responses)
-```
-
-### Modify UI Colors
-
-Update the CSS in the `st.markdown()` section to change colors:
-- User messages: `#2563eb` (blue)
-- Bot messages: `#e2e8f0` (light gray)
-- Header: `#2563eb` to `#1e40af` (blue gradient)
-
-## 🤖 Example Interactions
+## 📝 Example
 
 ```
 User: Hello
-Bot: Hey there! What's up?
-
-User: How are you?
-Bot: I'm feeling awesome! 😄 How are you?
+Bot: Hi! How can I help you today?
 
 User: What's your name?
-Bot: I'm ChatBot, a simple rule-based chatbot! Nice to meet you! 🤖
-
-User: Help
-Bot: I can help you with:
-     • Greetings (say 'hello', 'hi', 'hey')
-     • Check my mood (ask 'how are you')
-     • ... and more!
+Bot: I'm ChatBot - your friendly assistant! 🤖
 ```
 
-## 📝 Notes
+## 🐛 Troubleshooting
 
-- The web version uses Streamlit's session state to maintain conversation history
-- Each message includes a timestamp in HH:MM format
-- The chatbot provides random responses from a pool to avoid repetition
-- All responses are case-insensitive
-
-## 🛠️ Troubleshooting
-
-### Streamlit not found
-```bash
-pip install streamlit
-```
-
-### Port 8501 already in use
+Port already in use:
 ```bash
 streamlit run chatbot_web.py --server.port 8502
 ```
 
-### Email prompt appearing
-The `.streamlit/config.toml` file disables analytics and email prompts automatically.
-
 ## 📄 License
 
-This project is open source and available for educational and commercial use.
+Open source project by Apexcify Technologies
 
 ## 👤 Author
 
-Created by **Apexcify Technologies**
+**Ayesha404-tech** - https://github.com/Ayesha404-tech
 
-## 🙏 Support
+---
 
-For issues or suggestions, please create an issue in the repository.
+**Last Updated**: November 18, 2024 | **Version**: 2.0
