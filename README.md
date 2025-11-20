@@ -3,7 +3,7 @@
  # 🖥Python Programming Task List
  # ✅TASK 1: Email Automation System
  Goal: Create a simple system where from one email we can send a same paragraph to multiple emails at the same time .
- # Simplified Scope:
+ Simplified Scope:
  ● Use a small list of 20 predefined emails (no need to use a file or API).
  ● No limit for receiving email we can send 100 plus peoples at the same time.
 
@@ -22,5 +22,6 @@
  ● Predefined replies like: "Hi!", "I'm fine, thanks!", "Goodbye!".
  Key Concepts Used: if-elif, functions, loops, input/output.
  
+
 
 
